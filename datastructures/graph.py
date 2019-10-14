@@ -56,25 +56,3 @@ class Graph:
 			if not dfs(node):
 				return []
 		return order[::-1]
-
-	def bfs(self, start, target):
-		''' Breadth first search for target from start
-		Args:
-			nodes: An integer representing
-				number of nodes
-
-			graph: A graph represented by an
-				adjacency matrix
-
-		Returns:
-			A list of integer nodes sorted 
-			topologically (every node precedes 
-			its neighbors)
-
-			An empty list if there exists a cycle
-		'''
-		
-
-
-
-

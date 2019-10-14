@@ -3,6 +3,7 @@ class HashTable:
 		self.table = [[] for _ in range(size)]
 		self.size = size
 
+
 	def __str__(self):
 		s = ''
 		for bucket in self.table:
@@ -10,7 +11,18 @@ class HashTable:
 				s += '(' + str(key) + ' => ' + str(val) + ')'
 		return s
 
+
 	def put(self, key, val):
+		''' Put key value pair (key, val)
+		Args:
+			key: Hashable search key
+
+			val: Value to put into the table
+
+		Returns:
+			None
+		'''
+
 		index = hash(key) % self.size
 		chain = self.table[index]
 		for i in range(len(chain)):
@@ -19,15 +31,40 @@ class HashTable:
 				return
 		self.table[index].append((key, val))
 
+
 	def get(self, key):
+		''' Get value associated with key
+		Args:
+			key: Hashable search key
+
+		Returns:
+			Value if key exists in table;
+			Raises KeyError if key does
+			not exist
+		'''
+
 		index = hash(key) % self.size
 		for k, v in self.table[index]:
 			if k == key:
 				return v
 		raise KeyError
 
+
 	@staticmethod
 	def evaluate(actions):
+		''' Execute list of actions
+		Args:
+			actions: List of strings
+				representing actions, each
+				beginning with the function
+				name followed by function
+				arguments
+
+		Returns:
+			List of results of evaluating
+			each action
+		'''
+
 		table = None
 		res = []
 		for action in actions:

@@ -3,9 +3,11 @@ class Node:
 		self.val = val
 		self.nxt = nxt
 
+
 class LinkedList:
 	def __init__(self, head=None):
 		self.head = head
+
 
 	def __str__(self):
 		s = ''
@@ -15,7 +17,16 @@ class LinkedList:
 			node = node.nxt
 		return s + str(node.val)
 
+
 	def vals(self):
+		''' List of values in linked list
+		Args:
+			None
+
+		Returns:
+			List of values in linked list
+		'''
+
 		node = self.head
 		vals = []
 		while node:
@@ -23,20 +34,45 @@ class LinkedList:
 			node = node.nxt
 		return vals
 
-	def append(self, node):
+	def append(self, val):
+		''' Append node to right of linked list
+		Args:
+			val: Value to append
+
+		Returns:
+			None
+		'''
+
 		if not self.head:
-			self.head = node
+			self.head = Node(val)
 		else:
 			curr = self.head
 			while curr.nxt:
 				curr = curr.nxt
-			curr.nxt = node
+			curr.nxt = Node(val)
+
 
 	def appendleft(self, node):
+		''' Append node to left of linked list
+		Args:
+			val: Value to append
+
+		Returns:
+			None
+		'''
+
 		node.nxt = self.head
 		self.head = node
 
 	def sort(self):
+		''' Sort linked list
+		Args:
+			None
+
+		Returns:
+			None
+		'''
+
 		sorted_head = Node(-1)
 		sorted_curr = sorted_head
 
@@ -47,6 +83,14 @@ class LinkedList:
 		self.head = sorted_head.nxt
 
 	def reverse(self):
+		''' Reverses linked list
+		Args:
+			None
+
+		Returns:
+			None
+		'''
+
 		curr = self.head
 		last = None
 		while curr:
@@ -56,16 +100,3 @@ class LinkedList:
 			curr = nxt
 
 		self.head = last
-
-
-if __name__ == '__main__':
-	link = LinkedList()
-	for i in range(10, 0, -1):
-		link.append(Node(i))
-	print(link)
-	link.sort()
-	print(link)
-	link.reverse()
-	print(link)
-
-

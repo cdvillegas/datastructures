@@ -8,6 +8,7 @@ class Heap:
 
 	def __nonzero__(self): return len(self.heap) > 0
 
+	# Getter functions
 	def has_parent(self, index): return (index - 1) // 2 >= 0
 
 	def has_left_child(self, index): return (index * 2) + 1 < len(self.heap)
@@ -22,30 +23,77 @@ class Heap:
 
 
 	def peak(self):
+		''' Access top of heap
+		Args:
+			None
+
+		Returns:
+			Value at top of heap
+			Raises IndexError if
+			heap is empty
+		'''
+
 		if len(self.heap) > 0:
 			return self.heap[0]
 		else:
 			raise IndexError
 
 
-	def push(self, item):
-		self.heap.append(item)
+	def push(self, val):
+		''' Push val onto heap
+		Args:
+			val: Comparable value
+
+		Returns:
+			None
+		'''
+
+		self.heap.append(val)
 		self.heapify_up()
 
+
 	def pop(self):
+		''' Pop and return top of heap
+		Args:
+			None
+
+		Returns:
+			Value at top of heap;
+			Raises IndexError if heap
+			is empty
+		'''
+
 		top = self.peak()
 		if len(self.heap) > 1:
 			self.heap[0] = self.heap.pop()
 		self.heapify_down()
 		return top
 			
+
 	def heapify_up(self):
+		''' Heapify from the bottom up
+		Args:
+			None
+
+		Returns:
+			None
+		'''
+
 		for index in range(len(self.heap) - 1, -1, -1):
 			parent_index = self.parent_index(index)
 			if self.has_parent(index) and self.heap[parent_index] > self.heap[index]:
 				self.heap[index], self.heap[parent_index] = self.heap[parent_index], self.heap[index]
 
+
 	def heapify_down(self):
+		''' Heapify from the top down
+		Args:
+			None
+
+		Returns:
+			None
+		'''
+
 		for index in range(len(self.heap)):
 			left_child_index = self.left_child_index(index) if self.has_left_child(index) else None
 			right_child_index = self.right_child_index(index) if self.has_right_child(index) else None
@@ -63,6 +111,19 @@ class Heap:
 
 	@staticmethod
 	def evaluate(actions):
+		''' Execute list of actions
+		Args:
+			actions: List of strings
+				representing actions, each
+				beginning with the function
+				name followed by function
+				arguments
+
+		Returns:
+			List of results of evaluating
+			each action
+		'''
+
 		heap = None
 		res = []
 		for action in actions:
