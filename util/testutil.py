@@ -3,6 +3,7 @@ from datastructures.graph import Graph
 from datastructures.hashtable import HashTable
 from datastructures.heap import Heap
 from datastructures.linkedlist import LinkedList
+from datastructures.disjointsets import DisjointSets
 import json
 
 def parse_cases(structure, type):
@@ -18,6 +19,8 @@ def parse_cases(structure, type):
 			return [Heap.evaluate(actions) for actions in test[type]]
 		elif structure == 'linkedlist':
 			return [LinkedList.evaluate(actions) for actions in test[type]]
+		elif structure == 'disjointsets':
+			return [DisjointSets(val, pairs) for val, pairs in test[type]]
 
 def parse_solutions(test, structure, type):
 	with open('solutions/' + structure + '.json') as file:

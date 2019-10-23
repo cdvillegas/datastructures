@@ -1,6 +1,8 @@
-class disjointset:
-	def __init__(self, pairs=None, vals=None):
-		self.nodes = self.build(pairs, vals)
+class DisjointSets:
+	def __init__(self, val, pairs=None):
+		if not pairs:
+			pairs = []
+		self.nodes = self.build(pairs, val)
 
 	def __str__(self):
 		return ''.join([str(list(unique_set)) + ' ' for unique_set in self.sets()])
@@ -17,11 +19,14 @@ class disjointset:
 		return [sets[root].union(set([root])) for root in roots]
 
 
-	def build(self, pairs, vals):
+	def build(self, pairs, val):
 		roots = dict()
-		if vals:
-			for val in vals:
-				roots[val] = val
+		if isinstance(val, str):
+			for item in val:
+				roots[item] = item
+		elif isinstance(val, int):
+			for item in range(val):
+				roots[item] = item
 
 		for root, child in pairs:
 			child = roots.setdefault(child, child)
