@@ -8,6 +8,8 @@ class Heap:
 
 	def __nonzero__(self): return len(self.heap) > 0
 
+	def __len__(self): return len(self.heap)
+
 	# Getter functions
 	def has_parent(self, index): return (index - 1) // 2 >= 0
 
