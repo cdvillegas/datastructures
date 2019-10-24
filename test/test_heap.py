@@ -1,7 +1,6 @@
 import sys
 sys.path.insert(0, '..')
 
-from datastructures.heap import Heap
 from util import testutil
 import unittest
 

@@ -1,7 +1,6 @@
 import sys
 sys.path.insert(0, '..')
 
-from datastructures.disjointsets import DisjointSets
 from util import testutil
 import unittest
 

@@ -1,7 +1,6 @@
 import sys
 sys.path.insert(0, '..')
 
-from datastructures.linkedlist import LinkedList
 from util import testutil
 import unittest
 

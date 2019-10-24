@@ -1,7 +1,6 @@
 import sys
 sys.path.insert(0, '..')
 
-from datastructures.hashtable import HashTable
 from util import testutil
 import unittest
 
