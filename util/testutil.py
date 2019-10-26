@@ -7,7 +7,7 @@ def parse_cases(structure, type):
 		if structure == 'binarytree':
 			return [ds.BinaryTree(case) for case in test[type]]
 		elif structure == 'graph':
-			return [ds.Graph(case["nodes"], [(edge[0], edge[1]) for edge in case["graph"]]) for case in test[type]]
+			return [ds.Graph(case) for case in test[type]]
 		elif structure == 'hashtable':
 			return [ds.HashTable.evaluate(actions) for actions in test[type]]
 		elif structure == 'heap':
@@ -22,5 +22,5 @@ def parse_solutions(test, structure, type):
 		results = json.loads(file.read())
 		return results[test][type]
 
-def error_str(result, solution, case_structure, case):
-	return 'Got ' + str(result) + ', Expected ' + str(solution) + ' when testing ' + case_structure + ' ' + str(case)
+def error_str(result, solution, structure, type):
+	return 'Got ' + str(result) + ', Expected ' + str(solution) + ' when testing ' + structure + ' ' + str(type)
