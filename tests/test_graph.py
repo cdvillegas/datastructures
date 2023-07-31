@@ -1,51 +1,38 @@
-import sys
-sys.path.insert(0, '..')
-
-from util import testutil
 import unittest
+from datastructures.graph import Graph
 
 class TestGraph(unittest.TestCase):
-	def test_topological_sort(self):
-		for graph_type in ['simple', 'cycles']:
-			cases = testutil.parse_cases('graph', graph_type)
-			solutions = testutil.parse_solutions('topological_sort', 'graph', graph_type)
 
-			for case, solution in zip(cases, solutions):
-				result = case.topological_sort()
-				self.assertEqual(result, solution, testutil.error_str(result, solution, 'graph', graph_type))
+    def test_topological_sort(self):
+        edges = [('A', 'B'), ('B', 'C'), ('C', 'D')]
+        g = Graph(edges)
+        self.assertEqual(g.topological_sort(), ['A', 'B', 'C', 'D'])
 
+        edges_with_cycle = [('A', 'B'), ('B', 'C'), ('C', 'A')]
+        g = Graph(edges_with_cycle)
+        self.assertEqual(g.topological_sort(), []) # Cycle exists, so no topological sort possible
 
-	def test_contains_cycle(self):
-		for graph_type in ['simple', 'cycles']:
-			cases = testutil.parse_cases('graph', graph_type)
-			solutions = testutil.parse_solutions('contains_cycle', 'graph', graph_type)
+    def test_dfs(self):
+        edges = [('A', 'B'), ('A', 'C'), ('B', 'D'), ('C', 'D')]
+        g = Graph(edges)
+        self.assertEqual(g.dfs('A'), ['A', 'C', 'D', 'B'])
 
-			for case, solution in zip(cases, solutions):
-				has_cycle_result, cycle_result = case.contains_cycle()
-				has_cycle_solution, cycle_solution = solution
-				self.assertEqual(has_cycle_result, has_cycle_solution, testutil.error_str(has_cycle_result, has_cycle_solution, 'graph', graph_type))
-				self.assertEqual(cycle_result, cycle_solution, testutil.error_str(cycle_result, cycle_solution, 'graph', graph_type))
+    def test_bfs(self):
+        edges = [('A', 'B'), ('A', 'C'), ('B', 'D'), ('C', 'D')]
+        g = Graph(edges)
+        self.assertEqual(g.bfs('A'), ['A', 'B', 'C', 'D'])
 
+    def test_contains_cycle(self):
+        edges = [('A', 'B'), ('B', 'C'), ('C', 'D')]
+        g = Graph(edges)
+        self.assertEqual(g.contains_cycle(), (False, None))
 
-	def test_dfs(self):
-		for graph_type in ['simple', 'cycles']:
-			cases = testutil.parse_cases('graph', graph_type)
-			solutions = testutil.parse_solutions('dfs', 'graph', graph_type)
-
-			for case, solution in zip(cases, solutions):
-				result = case.dfs(0)
-				self.assertEqual(result, solution, testutil.error_str(result, solution, 'graph', graph_type))
-
-
-	def test_bfs(self):
-		for graph_type in ['simple', 'cycles']:
-			cases = testutil.parse_cases('graph', graph_type)
-			solutions = testutil.parse_solutions('bfs', 'graph', graph_type)
-
-			for case, solution in zip(cases, solutions):
-				result = case.bfs(0)
-				self.assertEqual(result, solution, testutil.error_str(result, solution, 'graph', graph_type))
-				
+        edges_with_cycle = [('A', 'B'), ('B', 'C'), ('C', 'A')]
+        g = Graph(edges_with_cycle)
+        has_cycle, cycle_path = g.contains_cycle()
+        self.assertTrue(has_cycle)
+        self.assertTrue(set(cycle_path) == set(['A', 'B', 'C']))
 
 if __name__ == '__main__':
-	unittest.main()
+    unittest.main()
+

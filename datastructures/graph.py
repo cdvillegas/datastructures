@@ -2,6 +2,13 @@ import json
 from collections import defaultdict, deque
 
 class Graph:
+	"""
+	A graph in is a data structure that consists of vertices 
+	(or nodes) and edges connecting these vertices. An 
+	efficient way to store graphs is to create an adjacency 
+	dictionary, where dictionary[N] returns all nodes that N
+	is connected to.
+	"""
 	def __init__(self, edges):
 		self.graph = defaultdict(list)
 		for first, second in edges:
@@ -13,17 +20,6 @@ class Graph:
 
 
 	def topological_sort(self):
-		''' Topologically sorted list of graph nodes
-		Args: None
-
-		Returns:
-			A list of integer nodes sorted 
-			topologically (every node precedes 
-			its neighbors)
-
-			An empty list if there exists a cycle
-		'''
-
 		visited = defaultdict(lambda: 0)
 		order = []
 	
@@ -35,7 +31,7 @@ class Graph:
 				return True
 			else:
 				visited[node] = -1
-				for adj in self.graph[node][::-1]:
+				for adj in self.graph[node]:
 					if not dfs(adj):
 						return False
 				visited[node] = 1
@@ -43,22 +39,12 @@ class Graph:
 			return True
 
 		# Traverse from each node
-		for node in self.graph.keys():
+		for node in list(self.graph.keys()):
 			if not dfs(node):
 				return []
 		return order[::-1]
 
 	def dfs(self, start):
-		''' Breadth first search ordering of graph nodes
-		Args: None
-
-		Returns:
-			A list of integer nodes sorted 
-			by breadth first ordering from start node
-
-			Raises exception if start does not exist
-		'''
-
 		stack = [start]
 		visited = defaultdict(bool)
 		ordering = []
@@ -68,24 +54,13 @@ class Graph:
 			if not visited[node]:
 				visited[node] = True
 				ordering.append(node)
-				for neighbor in self.graph[node][::-1]:
+				for neighbor in self.graph[node]:
 					if not visited[neighbor]:
 						stack.append(neighbor)
 
 		return ordering
 
-
 	def bfs(self, start):
-		''' Breadth first search ordering of graph nodes
-		Args: None
-
-		Returns:
-			A list of integer nodes sorted 
-			by breadth first ordering from start node
-
-			Raises exception if start does not exist
-		'''
-
 		queue = deque([start])
 		visited = defaultdict(bool)
 		ordering = []
@@ -101,40 +76,29 @@ class Graph:
 
 		return ordering
 
-
 	def contains_cycle(self):
-		''' Detects and returns a cycle if it exists
-		Args: None
+	    visited = defaultdict(lambda: 0)
 
-		Returns:
-			A boolean value, which is true if there 
-			exists a cycle and false otherwise
+	    # Define dfs traversal
+	    def dfs(node, path):
+	        if visited[node] == -1: # Node is currently being visited
+	            return True, path[path.index(node):] + [node]
+	        elif visited[node] == 1: # Node has already been visited
+	            return False, None
+	        else:
+	            visited[node] = -1
+	            for adj in self.graph[node]:
+	                has_cycle, cycle_path = dfs(adj, path + [node])
+	                if has_cycle:
+	                    return has_cycle, cycle_path
+	            visited[node] = 1
+	        return False, None
 
-			A path, which contains the nodes in the 
-			cycle in order if a cycle exists and is 
-			None otherwise.
-		'''
-		visited = defaultdict(lambda: 0)
+	    # Traverse from each node
+	    for node in list(self.graph.keys()):
+	        has_cycle, cycle_path = dfs(node, [])
+	        if has_cycle:
+	            return has_cycle, cycle_path
+	    return False, None
 
-		# Define dfs traversal
-		def dfs(node, path):
-			if visited[node] == -1: # Node is currently beign visited
-				return True, path[path.index(node):] + [node]
-			elif visited[node] == 1: # Node has already been visited
-				return False, None
-			else:
-				visited[node] = -1
-				for adj in self.graph[node][::-1]:
-					has_cycle, cycle_path = dfs(adj, path + [node])
-					if has_cycle:
-						return has_cycle, cycle_path
-				visited[node] = 1
-			return False, None
-
-		# Traverse from each node
-		for node in self.graph.keys():
-			has_cycle, cycle_path = dfs(node, [])
-			if has_cycle:
-				return has_cycle, cycle_path
-		return False, None
 

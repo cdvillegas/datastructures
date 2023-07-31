@@ -6,6 +6,12 @@ class Node:
 
 
 class BinaryTree:
+	"""
+	A binary tree is a hierarchical data structure in which each 
+	node has at most two children, which are referred to as the 
+	left child and the right child. It's a special case of a tree 
+	where every parent node has no more than two children.
+	"""
 	def __init__(self, tree_list=None):
 		if not tree_list:
 			self.root = None
@@ -37,8 +43,8 @@ class BinaryTree:
 				if index >= len(vals):
 					vals.extend([None] * (index - len(vals) + 1))
 				vals[index] = node.val
-				traverse(node.left, (index * 2) + 1, vals)
-				traverse(node.right, (index * 2) + 2, vals)
+				traverse(node.left, (index * 2) + 1)
+				traverse(node.right, (index * 2) + 2)
 		traverse(self.root, 0, vals)
 		return vals
 
@@ -75,7 +81,6 @@ class BinaryTree:
 			return traverse(node.left) + [node.val] + traverse(node.right)
 
 		return traverse(self.root)
-
 
 	def balance(self):
 		def traverse(traversal, lo, hi):

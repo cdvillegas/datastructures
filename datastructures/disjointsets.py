@@ -7,13 +7,6 @@ class DisjointSets:
     maintain a collection of elements partitioned into multiple 
     disjoint subsets. Each element belongs to exactly one subset, 
     and no two subsets have any elements in common.
-
-    This data structure supports two key methods:
-
-    find() : Determines which subset an element belongs to by 
-                returning the parent node of the subset.
-
-    union() : Merges two different subsets into a single subset
     """
 
     def __init__(self, pairs=[]):
