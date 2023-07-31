@@ -1,8 +1,0 @@
-{
-	"sort": {
-		"sort": [
-			[null, null, null, null, null, null, [1, 2, 3, 4, 5]],
-			[null, null, null, null, null, null, [-2, 1, 5, 10, 100]]
-		]
-	}
-}

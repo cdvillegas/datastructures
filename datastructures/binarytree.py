@@ -22,20 +22,7 @@ class BinaryTree:
 			self.root = traverse(0, size)
 			self.size = size[0]
 
-
-	def __str__(self): 
-		return str(self.list())
-
-
 	def height(self):
-		''' Maximum height of the tree
-		Args: None
-
-		Returns:
-			The height of the tree
-			Returns 0 if no tree exists
-		'''
-
 		def traverse(node):
 			if node:
 				return 1 + max(traverse(node.left), traverse(node.right))
@@ -43,16 +30,7 @@ class BinaryTree:
 				return 0
 		return traverse(self.root)
 
-
 	def list(self):
-		''' A list representation of the tree
-		Args: None
-
-		Returns:
-			A list of node values where 
-			the parent index of node at 
-			index i is (i - 1) // 2
-		'''
 		vals = [None] * self.size
 		def traverse(node, index, vals):
 			if node:
@@ -64,15 +42,7 @@ class BinaryTree:
 		traverse(self.root, 0, vals)
 		return vals
 
-
 	def insert(self, val):
-		''' Inserts a value into the tree
-		Args:
-			val: An integer representing a 
-				node value
-
-		Returns: None
-		'''
 		def traverse(node):
 			if not node:
 				return Node(val)
@@ -85,18 +55,7 @@ class BinaryTree:
 		self.root = traverse(self.root)
 		self.size += 1
 
-
 	def search(self, val):
-		''' Searches the tree for a value
-		Args:
-			val: An integer representing a 
-				node value
-
-		Returns:
-			True if a node with value val
-			exists in the tree, False
-			otherwise
-		'''
 		def traverse(node):
 			if not node:
 				return False
@@ -109,14 +68,7 @@ class BinaryTree:
 					return True
 		return traverse(self.root)
 
-
 	def inorder_traversal(self):
-		''' Searches the tree for a value
-		Args: None
-
-		Returns:
-			A list of sorted node values
-		'''
 		def traverse(node):
 			if not node:
 				return []
@@ -126,11 +78,6 @@ class BinaryTree:
 
 
 	def balance(self):
-		''' Optimally balance the tree
-		Args: None
-
-		Returns: None
-		'''
 		def traverse(traversal, lo, hi):
 			if lo <= hi:
 				mid = (hi + lo) // 2
