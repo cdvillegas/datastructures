@@ -1,5 +1,5 @@
 import unittest
-from datastructures.disjointsets import DisjointSets
+from datastructures.disjoint_sets import DisjointSets
 
 class TestDisjointSets(unittest.TestCase):
     def test_find_new_node(self):

@@ -1,4 +1,4 @@
-from datastructures.minheap import MinHeap
+from datastructures.min_heap import MinHeap
 
 class Sort:
 	@staticmethod

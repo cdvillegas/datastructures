@@ -5,7 +5,7 @@ class Node:
 		self.right = right
 
 
-class BinaryTree:
+class BinarySearchTree:
 	"""
 	A binary tree is a hierarchical data structure in which each 
 	node has at most two children, which are referred to as the 
