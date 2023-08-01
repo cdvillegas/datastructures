@@ -1,102 +1,58 @@
 class Node:
-	def __init__(self, val, nxt=None):
+	def __init__(self, val, next=None):
 		self.val = val
-		self.nxt = nxt
+		self.next = next
 
 
 class LinkedList:
-	def __init__(self, head=None):
-		self.head = head
+	def __init__(self, list_items=[]):
+		dummy = Node(-1)
+		tail = dummy
 
+		for item in list_items:
+			tail.next = Node(item)
+			tail = tail.next
 
-	def __str__(self):
-		s = ''
-		node = self.head
-		while node.nxt:
-			s += str(node.val) + ' - '
-			node = node.nxt
-		return s + str(node.val)
-
+		self.head = dummy.next
 
 	def vals(self):
-		''' List of values in linked list
-		Args:
-			None
-
-		Returns:
-			List of values in linked list
-		'''
-
 		node = self.head
 		vals = []
 		while node:
 			vals += [node.val]
-			node = node.nxt
+			node = node.next
 		return vals
 
 	def append(self, val):
-		''' Append node to right of linked list
-		Args:
-			val: Value to append
-
-		Returns:
-			None
-		'''
-
 		if not self.head:
 			self.head = Node(val)
 		else:
 			curr = self.head
-			while curr.nxt:
-				curr = curr.nxt
-			curr.nxt = Node(val)
+			while curr.next:
+				curr = curr.next
+			curr.next = Node(val)
 
-
-	def appendleft(self, node):
-		''' Append node to left of linked list
-		Args:
-			val: Value to append
-
-		Returns:
-			None
-		'''
-
-		node.nxt = self.head
+	def appendleft(self, val):
+		node = Node(val, next=self.head)
 		self.head = node
 
 	def sort(self):
-		''' Sort linked list
-		Args:
-			None
-
-		Returns:
-			None
-		'''
-
 		sorted_head = Node(-1)
-		sorted_curr = sorted_head
+		sorted_tail = sorted_head
 
 		for val in sorted(self.vals()):
-			sorted_curr.nxt = Node(val)
-			sorted_curr = sorted_curr.nxt
+			sorted_tail.next = Node(val)
+			sorted_tail = sorted_tail.next
 
-		self.head = sorted_head.nxt
+		self.head = sorted_head.next
 
 	def reverse(self):
-		''' Reverses linked list
-		Args:
-			None
-
-		Returns:
-			None
-		'''
-
 		curr = self.head
 		last = None
 		while curr:
-			nxt = curr.nxt
-			curr.nxt = last
+			next = curr.next
+			curr.next = last
 			last = curr
-			curr = nxt
+			curr = next
 
 		self.head = last
