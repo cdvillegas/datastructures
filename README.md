@@ -16,3 +16,6 @@ This will automatically discover and run all test cases in the tests directory.
 
 ## Contribution
 Feel free to contribute to the repository by adding more data structures or enhancing the existing ones. Be sure to include corresponding tests to verify the implementation.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
