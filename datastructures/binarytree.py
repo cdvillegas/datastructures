@@ -38,14 +38,14 @@ class BinaryTree:
 
 	def list(self):
 		vals = [None] * self.size
-		def traverse(node, index, vals):
+		def traverse(node, index):
 			if node:
 				if index >= len(vals):
 					vals.extend([None] * (index - len(vals) + 1))
 				vals[index] = node.val
 				traverse(node.left, (index * 2) + 1)
 				traverse(node.right, (index * 2) + 2)
-		traverse(self.root, 0, vals)
+		traverse(self.root, 0)
 		return vals
 
 	def insert(self, val):
