@@ -5,12 +5,10 @@ A repository containing a collection of common data structures implemented in Py
 Tests can be run from the terminal using the following command:
 ```
 python3 -m unittest tests/test_name.py
-
 ```
 You can also run all tests at once using the discover feature of unittest:
 ```
 python3 -m unittest discover tests
-
 ```
 This will automatically discover and run all test cases in the tests directory.
 
